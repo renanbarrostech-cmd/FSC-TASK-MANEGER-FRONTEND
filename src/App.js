@@ -1,15 +1,18 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [message, setMessage] = useState("Hello World");
+
+  const handleNewMessage = () => {
+    setMessage("Olá Mundo");
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-       <h1>Hello World</h1>
-      </header>
-    </div>
+    <>
+    <h1>{message}</h1>
+    <button onClick={handleNewMessage}>Change Message</button>
+    </>
   );
-}
+};
 
 export default App;
