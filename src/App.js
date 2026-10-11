@@ -1,63 +1,75 @@
-import React from "react";
+import { useState, useRef, useEffect } from "react";
+import "./App.css";
 import TaskItem from "./components/TaskItem";
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleStateChange = this.handleStateChange.bind(this);
-        this.state = {
-            tasks: [
-                { id: 1, title: "Task 1", completed: false },
-                { id: 2, title: "Task 2", completed: true },
-                { id: 3, title: "Task 3", completed: false },
-            ],
-        };
-    }
+const App = () => {
+    const mounted = useRef(false);
 
-    componentDidUpdate(prevProps, prevState) {
-        console.log(prevState);
-        console.log("Component was updated!");
-    }
+    useEffect(() => {
+        if (mounted.current === false) {
+            mounted.current = true;
+        } else {
+            console.log("Component was updated!");
+        }
+    });
 
-    handleStateChange() {
-        this.setState({
-            task: [],
-        });
-    }
+    const [tasks, setTasks] = useState([
+        { id: 1, title: "Task 1", completed: false },
+        { id: 2, title: "Task 2", completed: true },
+        { id: 3, title: "Task 3", completed: false },
+    ]);
 
-    render() {
-        return (
-            <>
-                {this.state.tasks.map((task) => (
-                    <TaskItem key={task.id} task={task} />
-                ))}
-                <button onClick={this.handleStateChange}>
-                    Limpar tarefas{console.log("teste")}
-                </button>
-            </>
-        );
-    }
-}
+    const handleCleanTask = () => {
+        setTasks([]);
+    };
+    return (
+        <>
+            {tasks.map((task) => (
+                <TaskItem key={task.id} task={task} />
+            ))}
+            <button onClick={handleCleanTask}>Limpar tarefas</button>
+        </>
+    );
+};
 
 export default App;
 
-// import { useState } from 'react';
-// import './App.css';
-// import TaskItem from './components/TaskItem';
+// class App extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.handleStateChange = this.handleStateChange.bind(this);
+//         this.state = {
+//             tasks: [
+//                 { id: 1, title: "Task 1", completed: false },
+//                 { id: 2, title: "Task 2", completed: true },
+//                 { id: 3, title: "Task 3", completed: false },
+//             ],
+//         };
+//     }
 
-// const App = () => {
-// const [tasks, setTasks] = useState([
-//   { id: 1, title: "Task 1", completed: false },
-//   { id: 2, title: "Task 2", completed: true },
-//   { id: 3, title: "Task 3", completed: false },
-// ]);
-// return (
-//   <>
-//   {tasks.map((task) => (
-//     <TaskItem key={task.id} task={task}/>
-//   ))}
-//   </>
-// );
-// };
+//     componentDidUpdate(prevProps, prevState) {
+//         console.log(prevState);
+//         console.log("Component was updated!");
+//     }
+
+//     handleStateChange() {
+//         this.setState({
+//             task: [],
+//         });
+//     }
+
+//     render() {
+//         return (
+//             <>
+//                 {this.state.tasks.map((task) => (
+//                     <TaskItem key={task.id} task={task} />
+//                 ))}
+//                 <button onClick={this.handleStateChange}>
+//                     Limpar tarefas{console.log("teste")}
+//                 </button>
+//             </>
+//         );
+//     }
+// }
 
 // export default App;
