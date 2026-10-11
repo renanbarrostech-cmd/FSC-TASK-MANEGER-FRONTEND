@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import './App.css';
+import TaskItem from './components/TaskItem';
 
 const App = () => {
-  const [message, setMessage] = useState("Hello World");
-
-  const handleNewMessage = () => {
-    setMessage("Olá Mundo");
-  }
+  const [tasks, setTasks] = useState([
+    { id: 1, title: "Task 1", completed: false },
+    { id: 2, title: "Task 2", completed: true },
+    { id: 3, title: "Task 3", completed: false },
+  ]);
   return (
     <>
-    <h1>{message}</h1>
-    <button onClick={handleNewMessage}>Change Message</button>
+    {tasks.map((task) => (
+      <TaskItem key={task.id} task={task}/>
+    ))}
     </>
   );
 };
