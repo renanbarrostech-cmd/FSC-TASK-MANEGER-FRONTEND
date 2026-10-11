@@ -4,7 +4,7 @@ import TaskItem from "./components/TaskItem";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.handleStateChange = this.handleStateChange.bind(this)
+        this.handleStateChange = this.handleStateChange.bind(this);
         this.state = {
             tasks: [
                 { id: 1, title: "Task 1", completed: false },
@@ -12,6 +12,11 @@ class App extends React.Component {
                 { id: 3, title: "Task 3", completed: false },
             ],
         };
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log(prevState);
+        console.log("Component was updated!");
     }
 
     handleStateChange() {
@@ -26,7 +31,9 @@ class App extends React.Component {
                 {this.state.tasks.map((task) => (
                     <TaskItem key={task.id} task={task} />
                 ))}
-                <button onClick={this.handleStateChange}>Limpar tarefas</button>
+                <button onClick={this.handleStateChange}>
+                    Limpar tarefas{console.log("teste")}
+                </button>
             </>
         );
     }
